@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Online — Запис на урок</title>
+  <link rel="stylesheet" href = "style.css">
+<body>
+
+  <!-- Шапка -->
+  <header class="navbar">
+    <div class="logo">🇬🇧 English<span>Online</span></div>
+    <nav>
+      <a href="index.html" class = "active">Головна</a>
+      <a href="teachers.html">Викладачі</a>
+      <a href="prices.html">Ціни</a>
+      <a href="contacts.html">Контакти</a>
+      <a href="login.html" class="btn-login">Увійти</a>
+
+    </nav>
+  </header>
+
+  <!-- Головна секція -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Покращуй англійську легко!</h1>
+      <p>Запишись на індивідуальні онлайн-уроки з викладачами з усього світу.</p>
+      <button class="btn-main" id="bookLesson">Записатися на урок</button>
+    </div>
+    <div class="hero-img">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="English lesson">
+    </div>
+  </section>
+
+  <!-- Блок переваг -->
+  <section class="features">
+    <h2>Чому саме ми?</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <h3>🎓 Досвідчені викладачі</h3>
+        <p>Викладачі з міжнародними сертифікатами та досвідом роботи.</p>
+      </div>
+      <div class="feature">
+        <h3>💻 Уроки онлайн</h3>
+        <p>Навчайся з будь-якого місця — вдома, у кавʼярні чи під час подорожі.</p>
+      </div>
+      <div class="feature">
+        <h3>📅 Гнучкий графік</h3>
+        <p>Обирай зручний час і викладача, що підходить саме тобі.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer>
+    <p>© 2025 English Online | Всі права захищені</p>
+  </footer>
+
+  <!-- Модальне вікно -->
+  <div id="lessonModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Запис на урок</h2>
+      <form id="lessonForm">
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Електронна пошта:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="teacher">Викладач:</label>
+        <select id="teacher" name="teacher" required>
+          <option value="">Оберіть викладача</option>
+          <option value="Anna">Anna (B2)</option>
+          <option value="Mark">Mark (C1)</option>
+          <option value="Sophie">Sophie (C2)</option>
+        </select>
+
+        <label for="date">Дата уроку:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Час:</label>
+        <input type="time" id="time" name="time" required>
+
+        <button type="submit" class="btn-main">Підтвердити запис</button>
+      </form>
+      <p id="successMsg" class="success-msg"></p>
+    </div>
+  </div>
+
+  <!-- JS логіка -->
+  <script>
+    const modal = document.getElementById("lessonModal");
+    const btn = document.getElementById("bookLesson");
+    const closeBtn = document.querySelector(".close-btn");
+    const form = document.getElementById("lessonForm");
+    const successMsg = document.getElementById("successMsg");
+
+    // Заборона вибору минулої дати
+    document.getElementById("date").min = new Date().toISOString().split("T")[0];
+
+    btn.onclick = () => modal.style.display = "flex";
+
+    closeBtn.onclick = () => closeModal();
+
+    window.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    modal.querySelector(".modal-content").addEventListener("click", e => e.stopPropagation());
+
+    function closeModal() {
+      modal.style.display = "none";
+      form.reset();
+      successMsg.textContent = "";
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      successMsg.textContent = "✅ Ви успішно записались на урок!";
+      form.reset();
+      setTimeout(closeModal, 2000);
+    });
+  </script>
+</body>
+</html>

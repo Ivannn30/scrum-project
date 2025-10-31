@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Увійти | English Online</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <h1>English Online</h1>
+    <nav>
+      <a href="index.html"> Головна</a>
+      <a href="teachers.html"> Викладачі</a>
+      <a href="prices.html"> Ціни</a>
+      <a href="contacts.html"> Контакти</a>
+      
+    </nav>
+  </header>
+
+  <main>
+    <div class="login-box">
+      <h2>Увійти до акаунта</h2>
+      <form id="loginForm">
+        <label for="email">Електронна пошта:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn-main">Увійти</button>
+      </form>
+      <p id="loginMsg" class="success-msg"></p>
+
+      <p class="register-text">
+        Немає акаунта? <a href="register.html">Зареєструватися</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 English Online School | Всі права захищені</p>
+  </footer>
+
+  <script>
+  const loginForm = document.getElementById("loginForm");
+  const loginMsg = document.getElementById("loginMsg");
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const foundUser = users.find(u => u.email === email && u.password === password);
+
+    if (foundUser) {
+      loginMsg.textContent = "✅ Вхід успішний!";
+      loginMsg.style.color = "green";
+
+      // зберігаємо поточного користувача
+      localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    } else {
+      loginMsg.textContent = "❌ Невірний email або пароль!";
+      loginMsg.style.color = "red";
+    }
+  });
+</script>
+
+
+</body>
+</html>
